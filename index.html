@@ -14,7 +14,7 @@
   }
   html { scroll-behavior: smooth; }
   body { background: var(--black); color: var(--white); font-family: var(--sans); font-weight: 300; line-height: 1.6; overflow-x: hidden; }
-  nav { position: fixed; top: 28px; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 3rem; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 3rem; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); }
   .logo { font-family: var(--display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--white); text-decoration: none; }
   .logo span { color: var(--red); }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
@@ -144,8 +144,8 @@
 </head>
 <body>
 
-<div style="position:fixed;top:0;left:0;right:0;z-index:101;background:#111;border-bottom:1px solid rgba(255,255,255,0.06);padding:0.4rem 3rem;text-align:center;font-family:var(--mono);font-size:0.65rem;color:var(--gray);letter-spacing:0.06em;">Not affiliated with Blackmagic Design or Elgato</div>
-<nav>
+
+<nav style="flex-direction:column;padding:0.5rem 3rem;">
   <a href="#" class="logo">ATEM<span>director</span></a>
   <div class="nav-links">
     <a href="#features">Features</a>
@@ -155,6 +155,7 @@
     <a href="#faq">FAQ</a>
     <a href="https://atemdirector.gumroad.com/l/ProLicense" class="nav-cta">Get it — $29</a>
   </div>
+  <div style="font-family:var(--mono);font-size:0.6rem;color:var(--gray);letter-spacing:0.06em;padding-top:0.3rem;">Not affiliated with Blackmagic Design or Elgato</div>
 </nav>
 
 <section class="hero">
