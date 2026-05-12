@@ -210,20 +210,24 @@ function loadFromSheet() {
   });
 }
 
-async function saveToSheet() {
+function saveToSheet() {
   setSyncStatus('syncing', 'saving');
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    await fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: JSON.stringify(state),
-      headers: { 'Content-Type': 'text/plain' }
-    });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const callbackName = 'gsSave_' + Date.now();
+  const script = document.createElement('script');
+  window[callbackName] = function() {
+    delete window[callbackName];
+    document.body.removeChild(script);
     setSyncStatus('synced', 'synced');
-  } catch(e) {
+  };
+  script.onerror = function() {
+    delete window[callbackName];
+    document.body.removeChild(script);
     setSyncStatus('error', 'sync failed');
-  }
+  };
+  const encoded = encodeURIComponent(JSON.stringify(state));
+  script.src = SCRIPT_URL + '?callback=' + callbackName + '&data=' + encoded;
+  document.body.appendChild(script);
 }
 
 function scheduleSave() {
