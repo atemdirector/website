@@ -74,14 +74,17 @@
       </div>
       <span><span class="progress-count" id="progressCount">0</span> / <span id="progressTotal">0</span></span>
     </div>
+    <button class="reset-btn" onclick="importState()">Import</button>
+    <button class="reset-btn" onclick="exportState()">Export</button>
     <button class="reset-btn" onclick="resetAll()">Reset</button>
+    <input type="file" id="importInput" accept=".json" style="display:none" onchange="handleImport(event)">
   </div>
 </nav>
 
 <div class="hero">
   <div class="hero-eyebrow">Launch Checklist</div>
   <h1 class="hero-headline">Ship <em>ATEMdirector.</em></h1>
-  <p class="hero-sub">v0.9-beta · Make Unit LLC</p>
+  <p class="hero-sub">v0.9-beta</p>
 </div>
 
 <div class="content" id="checklist"></div>
@@ -96,6 +99,10 @@ const phases = [
     items: [
       { label: 'Custom icons for each button', done: true },
       { label: 'README / setup guide on GitHub' },
+      { label: 'Include atem_audio_director.py inside plugin folder', note: 'Move from Desktop into plugin, update paths in plugin.js' },
+      { label: 'Update plugin.js to use __dirname instead of ~/Desktop for Python script path' },
+      { label: 'Create .command launcher that references plugin folder and drops shortcut on Desktop' },
+      { label: 'Test Audio Director from new location' },
       { label: 'License key check for Pro features', done: true, tag: 'testing', note: 'Done in code — needs end-to-end testing' },
       { label: 'Split plugin into Free and Pro tiers', done: true, note: 'Done in code — needs Gumroad products live' },
       { label: 'Merge feature/custom-icons → main, tag v0.9-beta' },
@@ -162,32 +169,45 @@ function setSyncStatus(status, label) {
   lbl.textContent = label;
 }
 
-async function loadFromSheet() {
+function loadFromSheet() {
   setSyncStatus('syncing', 'loading');
-  try {
-    const res = await fetch(SCRIPT_URL);
-    const text = await res.text();
-    const data = JSON.parse(text);
-    if (data && typeof data === 'object') {
-      state = data;
-    }
-  } catch(e) {
-    // Fall back to localStorage
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      Object.assign(state, saved);
-    } catch(e2) {}
-    setSyncStatus('error', 'offline');
-    return;
-  }
-  // Apply defaults for items marked done: true
-  phases.forEach((phase, pi) => {
-    phase.items.forEach((item, ii) => {
-      const key = pi + '-' + ii;
-      if (item.done && state[key] === undefined) state[key] = true;
-    });
+  return new Promise((resolve) => {
+    const callbackName = 'gsCb_' + Date.now();
+    const script = document.createElement('script');
+    window[callbackName] = function(data) {
+      delete window[callbackName];
+      document.body.removeChild(script);
+      try {
+        if (data && typeof data === 'object') state = data;
+      } catch(e) {}
+      phases.forEach((phase, pi) => {
+        phase.items.forEach((item, ii) => {
+          const key = pi + '-' + ii;
+          if (item.done && state[key] === undefined) state[key] = true;
+        });
+      });
+      setSyncStatus('synced', 'synced');
+      resolve();
+    };
+    script.onerror = function() {
+      delete window[callbackName];
+      document.body.removeChild(script);
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        Object.assign(state, saved);
+      } catch(e) {}
+      phases.forEach((phase, pi) => {
+        phase.items.forEach((item, ii) => {
+          const key = pi + '-' + ii;
+          if (item.done && state[key] === undefined) state[key] = true;
+        });
+      });
+      setSyncStatus('error', 'offline');
+      resolve();
+    };
+    script.src = SCRIPT_URL + '?callback=' + callbackName;
+    document.body.appendChild(script);
   });
-  setSyncStatus('synced', 'synced');
 }
 
 async function saveToSheet() {
@@ -196,6 +216,7 @@ async function saveToSheet() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     await fetch(SCRIPT_URL, {
       method: 'POST',
+      mode: 'no-cors',
       body: JSON.stringify(state),
       headers: { 'Content-Type': 'text/plain' }
     });
@@ -217,6 +238,34 @@ function toggle(pi, ii) {
   updatePhaseCount(pi);
   updateProgress();
   scheduleSave();
+}
+
+function exportState() {
+  const data = { version: 1, state: state, exported: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'atemdirector-checklist.json'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importState() {
+  document.getElementById('importInput').click();
+}
+
+function handleImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (data.state) { state = data.state; build(); saveToSheet(); }
+      else alert('Invalid file.');
+    } catch(err) { alert('Could not read file.'); }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
 }
 
 function resetAll() {
