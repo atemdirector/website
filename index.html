@@ -29,6 +29,8 @@
   .hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(230,48,48,0.12) 0%, transparent 70%); pointer-events: none; }
   .hero-eyebrow { font-family: var(--mono); font-size: 0.75rem; color: var(--red); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
   .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--red); }
+  .version-badge { display: inline-block; font-family: var(--mono); font-size: 0.7rem; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.15); padding: 0.3rem 0.7rem; border-radius: 3px; margin-bottom: 1.5rem; }
+  .version-tag { font-family: var(--mono); font-size: 0.7rem; color: var(--gray); text-align: center; margin-top: 0.75rem; margin-bottom: 0; letter-spacing: 0.05em; }
   .hero-headline { font-family: var(--display); font-weight: 800; font-size: clamp(3rem, 7vw, 6.5rem); line-height: 1; letter-spacing: -0.03em; max-width: 900px; margin-bottom: 1.5rem; }
   .hero-headline em { font-style: normal; color: var(--red); }
   .hero-sub { font-size: 1.2rem; color: rgba(245,243,239,0.6); max-width: 560px; margin-bottom: 3rem; font-weight: 300; line-height: 1.7; }
@@ -192,6 +194,7 @@
 </nav>
 
 <section class="hero">
+  <div class="version-badge">v1.1.0 · May 2026</div>
   <div class="hero-eyebrow">Stream Deck Plugin for ATEM Switchers</div>
   <h1 class="hero-headline">
     Your ATEM.<br>
@@ -439,6 +442,7 @@
       <li>Free updates for 12 months</li>
       <li>Email support</li>
     </ul>
+    <p class="version-tag">Latest release: v1.1.0 (May 2026)</p>
     <a href="https://atemdirector.gumroad.com/l/ProLicense" class="price-cta">Download ATEMdirector →</a>
     <p class="price-disclaimer">Tested on ATEM Mini Pro ISO · macOS 10.15+</p>
   </div>
