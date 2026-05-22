@@ -103,6 +103,27 @@ const STORAGE_KEY = 'atd_checklist_v2';
 
 const phases = [
   {
+    title: 'Phase 0 — v1.2.0 critical fixes', color: '#E63030',
+    items: [
+      { label: 'Switch manifest CodePath from launcher.sh to plugin.js', done: true, note: 'Validated on fresh Mac — needs replication in prod repo' },
+      { label: 'Add embedded Node 20 to manifest ("Nodejs": {"Version": "20"})', done: true, note: 'Stream Deck downloads runtime automatically — no user install needed' },
+      { label: 'Bump manifest Software.MinimumVersion to 6.6', done: true, note: 'Required by NodeManager in Stream Deck 7.x' },
+      { label: 'Remove launcher.sh from plugin', done: true },
+      { label: 'Fork atem-connection without @julusian/freetype2 dependency', note: 'Patch multiviewLabel.js to remove require — feature not used by plugin' },
+      { label: 'Publish forked atem-connection (GitHub or private npm)' },
+      { label: 'Update plugin package.json to use forked atem-connection' },
+      { label: 'Clean npm install — verify no .node binaries from freetype2 remain' },
+      { label: 'Decide on naudiodon binary (Pro Audio Director only)', note: 'Either include and accept Gatekeeper popup, or defer Audio Director to v1.3' },
+      { label: 'Bump plugin version to 1.2.0 in manifest.json and package.json' },
+      { label: 'Test full install on fresh Mac (icons render, ATEM connects, buttons work)' },
+      { label: 'Re-zip plugin and verify size (~3-5MB without binaries)' },
+      { label: 'Upload v1.2.0 ZIP to Gumroad Free product' },
+      { label: 'Upload v1.2.0 ZIP to Gumroad Pro product' },
+      { label: 'Notify existing buyers via Gumroad "Send update"', note: 'Mention bug fix and reinstall instructions' },
+      { label: 'Commit and tag v1.2.0 in plugin repo' },
+    ]
+  },
+  {
     title: 'Phase 1 — Product', color: '#1D9E75',
     items: [
       { label: 'Custom icons for each button', done: true },
@@ -128,6 +149,8 @@ const phases = [
       { label: 'Apply to Stream Deck Marketplace', note: 'After v0.9-beta is tagged and tested' },
       { label: 'Talk to contador about factura E', note: 'Exportación de servicios digitales → AFIP, invoicing Gumroad Inc.' },
       { label: 'Trademark "ATEMdirector"', tag: 'defer', note: 'Defer until revenue starts' },
+      { label: 'Enroll in Apple Developer Program ($99/year)', tag: 'defer', note: 'Defer until first $500 in revenue — eliminates Gatekeeper popups for binary downloads' },
+      { label: 'Set up codesign + notarization workflow', tag: 'defer', note: 'Requires Apple Developer enrollment first' },
     ]
   },
   {
@@ -163,6 +186,16 @@ const phases = [
       { label: 'Post on Twitter/X and LinkedIn' },
       { label: 'Run $100 Reddit or YouTube ad' },
       { label: 'Follow up with first 10 customers for testimonials' },
+    ]
+  },
+  {
+    title: 'Phase 6 — Future (post-validation)', color: '#888888',
+    items: [
+      { label: 'Migrate to @elgato/streamdeck v2 SDK', tag: 'defer', note: 'After 100+ paid users — enables Stream Deck Marketplace submission' },
+      { label: 'Apply to Stream Deck Marketplace officially', tag: 'defer', note: 'Requires SDK v2 migration + Apple notarization' },
+      { label: 'Windows support', tag: 'defer', note: 'After macOS is stable and revenue-positive' },
+      { label: 'ATEM Mini Extreme support', tag: 'defer', note: 'Requires hardware to test' },
+      { label: 'Mock ATEM for testing without hardware', tag: 'defer', note: 'MockAtem class — could ship as demo mode for marketplace evaluators' },
     ]
   }
 ];
