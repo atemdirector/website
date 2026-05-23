@@ -92,7 +92,7 @@
 <div class="hero">
   <div class="hero-eyebrow">Launch Checklist</div>
   <h1 class="hero-headline">Ship <em>ATEMdirector.</em></h1>
-  <p class="hero-sub">v0.9-beta</p>
+  <p class="hero-sub">v1.2.0</p>
 </div>
 
 <div class="content" id="checklist"></div>
@@ -109,18 +109,18 @@ const phases = [
       { label: 'Add embedded Node 20 to manifest ("Nodejs": {"Version": "20"})', done: true, note: 'Stream Deck downloads runtime automatically — no user install needed' },
       { label: 'Bump manifest Software.MinimumVersion to 6.6', done: true, note: 'Required by NodeManager in Stream Deck 7.x' },
       { label: 'Remove launcher.sh from plugin', done: true },
-      { label: 'Fork atem-connection without @julusian/freetype2 dependency', note: 'Patch multiviewLabel.js to remove require — feature not used by plugin' },
-      { label: 'Publish forked atem-connection (GitHub or private npm)' },
-      { label: 'Update plugin package.json to use forked atem-connection' },
-      { label: 'Clean npm install — verify no .node binaries from freetype2 remain' },
-      { label: 'Decide on naudiodon binary (Pro Audio Director only)', note: 'Either include and accept Gatekeeper popup, or defer Audio Director to v1.3' },
-      { label: 'Bump plugin version to 1.2.0 in manifest.json and package.json' },
-      { label: 'Test full install on fresh Mac (icons render, ATEM connects, buttons work)' },
-      { label: 'Re-zip plugin and verify size (~3-5MB without binaries)' },
+      { label: 'Fork atem-connection without @julusian/freetype2 dependency', done: true, note: 'Patch multiviewLabel.js to remove require — feature not used by plugin' },
+      { label: 'Publish forked atem-connection (GitHub or private npm)', done: true },
+      { label: 'Update plugin package.json to use forked atem-connection', done: true },
+      { label: 'Clean npm install — verify no .node binaries from freetype2 remain', done: true },
+      { label: 'Decide on naudiodon binary (Pro Audio Director only)', done: true, note: 'Kept Python approach — naudiodon unused, Audio Director ships with bundled venv' },
+      { label: 'Bump plugin version to 1.2.0 in manifest.json and package.json', done: true },
+      { label: 'Test full install on fresh Mac (icons render, ATEM connects, buttons work)', done: true },
+      { label: 'Re-zip plugin and verify size', done: true, note: '7.3MB including bundled Python venv with pyaudio' },
       { label: 'Upload v1.2.0 ZIP to Gumroad Free product' },
       { label: 'Upload v1.2.0 ZIP to Gumroad Pro product' },
       { label: 'Notify existing buyers via Gumroad "Send update"', note: 'Mention bug fix and reinstall instructions' },
-      { label: 'Commit and tag v1.2.0 in plugin repo' },
+      { label: 'Commit and tag v1.2.0 in plugin repo', done: true },
     ]
   },
   {
@@ -128,14 +128,14 @@ const phases = [
     items: [
       { label: 'Custom icons for each button', done: true },
       { label: 'README / setup guide on GitHub' },
-      { label: 'Include atem_audio_director.py inside plugin folder', note: 'Move from Desktop into plugin, update paths in plugin.js' },
-      { label: 'Update plugin.js to use __dirname instead of ~/Desktop for Python script path' },
-      { label: 'Create .command launcher that references plugin folder and drops shortcut on Desktop' },
-      { label: 'Test Audio Director from new location' },
+      { label: 'Include atem_audio_director.py inside plugin folder', done: true, note: 'Moved into plugin, paths use __dirname' },
+      { label: 'Update plugin.js to use __dirname instead of ~/Desktop for Python script path', done: true },
+      { label: 'Create .command launcher that references plugin folder and drops shortcut on Desktop', done: true },
+      { label: 'Test Audio Director from new location', done: true },
       { label: 'License key check for Pro features', done: true, tag: 'testing', note: 'Done in code — needs end-to-end testing' },
       { label: 'Split plugin into Free and Pro tiers', done: true, note: 'Done in code — needs Gumroad products live' },
       { label: 'Merge feature/custom-icons → main, tag v0.9-beta' },
-      { label: 'Test on a clean Mac from scratch' },
+      { label: 'Test on a clean Mac from scratch', done: true },
       { label: 'Find beta tester with ATEM Mini (not Pro ISO)', note: 'Verify compatibility beyond Mini Pro ISO' },
     ]
   },
