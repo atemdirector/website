@@ -83,14 +83,7 @@
   /* DEMO VIDEO */
   .demo { border-top: 1px solid rgba(255,255,255,0.08); padding: 5rem 3rem; }
   .demo-inner { max-width: 900px; margin: 0 auto; }
-  .demo-video { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #111; border: 1px solid rgba(255,255,255,0.08); cursor: pointer; }
-  .demo-video img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease, filter 0.4s ease; filter: brightness(0.75); }
-  .demo-video:hover img { transform: scale(1.02); filter: brightness(0.6); }
-  .demo-play { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.25rem; }
-  .demo-play-btn { width: 72px; height: 72px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; transition: transform 0.2s, background 0.2s; }
-  .demo-video:hover .demo-play-btn { transform: scale(1.1); background: var(--red-dark); }
-  .demo-play-btn svg { width: 28px; height: 28px; margin-left: 4px; }
-  .demo-caption { font-family: var(--mono); font-size: 0.7rem; color: rgba(245,243,239,0.4); letter-spacing: 0.1em; text-transform: uppercase; }
+  .demo-video { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #111; border: 1px solid rgba(255,255,255,0.08); }
 
   /* COMPATIBILITY */
   .compat { border-top: 1px solid rgba(255,255,255,0.08); }
@@ -240,13 +233,7 @@
   <div class="demo-inner">
     <div class="section-label">See it in action</div>
     <div class="demo-video">
-      <img src="/images/demo-placeholder.jpg" alt="ATEMdirector running on Stream Deck XL — Camera 2 live, Camera 3 in preview">
-      <div class="demo-play">
-        <div class="demo-play-btn">
-          <svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
-        </div>
-        <span class="demo-caption">Demo video coming soon</span>
-      </div>
+      <iframe src="https://www.youtube.com/embed/A7KADBZFP2U" title="ATEMdirector — Control Your ATEM Mini from Stream Deck" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:0;"></iframe>
     </div>
   </div>
 </section>
@@ -310,13 +297,8 @@
 
 <section class="spotlight">
   <div class="spotlight-inner">
-    <div class="spotlight-visual">
-      <div class="log-line"><span class="time">15:41:47</span><span class="active">CAM 1 → Program (MIC 1 active)</span></div>
-      <div class="log-line"><span class="time">15:41:57</span><span class="active">CAM 2 → Program (MIC 2 active)</span></div>
-      <div class="log-line"><span class="time">15:42:05</span><span class="active">CAM 1 → Program (MIC 1 active)</span></div>
-      <div class="log-line"><span class="time">15:42:31</span><span class="cut">CAM 3 → Program (establishing shot)</span></div>
-      <div class="log-line"><span class="time">15:42:37</span><span class="active">CAM 1 → Program (MIC 1 active)</span></div>
-      <div class="log-line"><span class="time">15:42:48</span><span class="active">CAM 2 → Program (MIC 2 active)</span></div>
+    <div style="position:relative; width:100%; aspect-ratio:16/9; border-radius:8px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);">
+      <iframe src="https://www.youtube.com/embed/SkVUV7mTwPg" title="ATEMdirector — Automatic Audio Switching for ATEM Mini" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:0;"></iframe>
     </div>
     <div>
       <div class="section-label">Audio Director</div>
