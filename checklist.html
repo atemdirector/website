@@ -170,9 +170,10 @@ const phases = [
   {
     title: 'Phase 4 — Demo video', color: '#D85A30',
     items: [
-      { label: 'Write video script (2–3 min)', note: 'Hook → problem → demo → Audio Director spotlight → price' },
-      { label: 'Record screen capture of plugin in action' },
+      { label: 'Write video script (2–3 min)', done: true, note: 'Hook → problem → demo → Audio Director spotlight → price' },
+      { label: 'Record screen capture of plugin in action', done: true },
       { label: 'Edit and upload to YouTube' },
+      { label: 'Make YouTube thumbnail' },
       { label: 'Write YouTube description with SEO keywords' },
     ]
   },
@@ -189,7 +190,19 @@ const phases = [
     ]
   },
   {
-    title: 'Phase 6 — Future (post-validation)', color: '#888888',
+    title: 'Phase 6 — v1.2.1 features', color: '#C07020',
+    items: [
+      { label: 'Preview buttons row: send sources to preview (not program)' },
+      { label: 'Start STREAM button turns red while streaming is active' },
+      { label: 'Start REC button turns red while recording is active' },
+      { label: 'Stop STREAM button (complement to Start STREAM)' },
+      { label: 'Stop REC button (complement to Start REC)' },
+      { label: 'Auto Director bug: pick new camera → preview → cut (currently cuts preview→program)', note: 'Needs logic rework' },
+      { label: 'Media Player override: Audio Director should not cut camera while MP1 is in program' },
+    ]
+  },
+  {
+    title: 'Phase 8 — Future (post-validation)', color: '#888888',
     items: [
       { label: 'Migrate to @elgato/streamdeck v2 SDK', tag: 'defer', note: 'After 100+ paid users — enables Stream Deck Marketplace submission' },
       { label: 'Apply to Stream Deck Marketplace officially', tag: 'defer', note: 'Requires SDK v2 migration + Apple notarization' },
