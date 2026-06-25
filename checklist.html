@@ -92,7 +92,7 @@
 <div class="hero">
   <div class="hero-eyebrow">Launch Checklist</div>
   <h1 class="hero-headline">Ship <em>ATEMdirector.</em></h1>
-  <p class="hero-sub">v1.2.1</p>
+  <p class="hero-sub">v1.2.0</p>
 </div>
 
 <div class="content" id="checklist"></div>
@@ -192,68 +192,23 @@ const phases = [
   {
     title: 'Phase 6 — v1.2.1 features', color: '#C07020',
     items: [
-      { label: 'Preview buttons row: send sources to preview (not program)', done: true, note: 'Already covered by existing campreview action' },
-      { label: 'Start STREAM button turns red while streaming is active', done: true },
-      { label: 'Start REC button turns red while recording is active', done: true },
-      { label: 'Stop STREAM button (complement to Start STREAM)', done: true, note: 'Decided: keep existing toggle buttons — start+stop+red in one' },
-      { label: 'Stop REC button (complement to Start REC)', done: true, note: 'Decided: keep existing toggle buttons — start+stop+red in one' },
-      { label: 'Auto Director rework: pick new camera → preview → cut (was re-cutting whatever was on preview)', done: true, note: 'Rotation pool uses enabled cams from settings, else inputs 1–4' },
-      { label: 'Media Player override: Audio Director and CAM 3 timer hold while MP is on program', done: true },
-      { label: 'Skip CAM 3: checkbox in Audio Director PI ("I only have 2 cameras")', done: true, note: 'Skips CAM 3 initial correction and CAM 3 timer entirely' },
-      { label: 'Icon live update: Camera to Preview and Switch Input icons update immediately when PI input changes', done: true, note: 'Uses sendToPlugin → inputChanged pattern; bypasses Stream Deck didReceiveSettings queue' },
-      { label: 'Hardware test v1.2.1 on real ATEM', note: 'Skip CAM 3, Auto Director rework, MP override — code done, needs live test' },
-      { label: 'Upload v1.2.1 ZIP to Gumroad Free product' },
-      { label: 'Upload v1.2.1 ZIP to Gumroad Pro product' },
-      { label: 'Notify existing buyers via Gumroad "Send update"' },
-      { label: 'Tag v1.2.1 in git and push', note: 'git tag -a v1.2.1 -m "Release 1.2.1" && git push origin v1.2.1' },
+      { label: 'Preview buttons row: send sources to preview (not program)' },
+      { label: 'Start STREAM button turns red while streaming is active' },
+      { label: 'Start REC button turns red while recording is active' },
+      { label: 'Stop STREAM button (complement to Start STREAM)' },
+      { label: 'Stop REC button (complement to Start REC)' },
+      { label: 'Auto Director bug: pick new camera → preview → cut (currently cuts preview→program)', note: 'Needs logic rework' },
+      { label: 'Media Player override: Audio Director should not cut camera while MP1 is in program' },
     ]
   },
   {
-    title: 'Phase 7 — Marketplace: Store-Ready Pass', color: '#1D9E9E',
+    title: 'Phase 8 — Future (post-validation)', color: '#888888',
     items: [
-      { label: 'Decide on Pro license strategy for marketplace', note: 'BLOCKER: Elgato policy bans external paywalls. Options: (1) make Auto+Audio Director free, (2) submit free-tier actions only, (3) wait for Elgato DRM (SDKVersion 3)' },
-      { label: 'Rename plugin folder: com.atem.mini.sdPlugin → com.makeunit.atemdirector.sdPlugin', note: 'UUID is immutable once published — must finalize this namespace before first submission' },
-      { label: 'Rename all UUIDs in manifest.json (11 actions)', note: 'com.atem.mini.* → com.makeunit.atemdirector.*' },
-      { label: 'Rename all UUID strings in plugin.js (~30 occurrences)', note: 'requiresPro(), refreshAllButtons(), willAppear, didReceiveSettings, handleKeyDown' },
-      { label: 'Update hardcoded UUID in switch-input.html (line 84)', note: 'action: "com.atem.mini.switchinput" → com.makeunit.atemdirector.switchinput' },
-      { label: 'Update hardcoded UUID in cam-preview.html (line 68)', note: 'action: "com.atem.mini.campreview" → com.makeunit.atemdirector.campreview' },
-      { label: 'Fix Spanish text in cam-preview.html', note: '"Verde = en Preview / Rojo = en Program" → translate to English' },
-      { label: 'Remove "Debug": "enabled" from manifest.json Nodejs block' },
-      { label: 'Update manifest.json Description field (fuller, marketable text)' },
-      { label: 'Add "URL": "https://atemdirector.com" to manifest.json' },
-      { label: 'Update sync-to-streamdeck.sh and restore scripts for new folder name' },
-      { label: 'Verify and remove unused audiobuffer-to-wav dependency', note: 'Not found in plugin.js imports — likely dead dep' },
-      { label: 'Verify and remove unused naudiodon dependency', note: 'Audio Director uses Python/pyaudio — naudiodon not imported in plugin.js' },
-      { label: 'Resolve PIP action: add to manifest.json or delete from plugin.js', note: 'com.atem.mini.pip exists in plugin.js with full handler but is absent from manifest' },
-      { label: 'Test renamed plugin installed side-by-side with old version' },
-      { label: 'Register on Elgato Maker Console (developer.elgato.com)' },
-      { label: 'Prepare marketplace assets: screenshots, listing description, category' },
-      { label: 'Submit to Elgato Marketplace for review' },
-    ]
-  },
-  {
-    title: 'Phase 8 — Marketplace: Full SDK Migration', color: '#7755BB',
-    items: [
-      { label: 'Add @elgato/streamdeck npm package and TypeScript setup', note: 'Official SDK is TypeScript-first; sets up build pipeline with npm run watch/build' },
-      { label: 'Extract ATEM connection into a shared service module', note: 'atem, atemConnected, connectATEM(), refreshAllButtons() — must be importable by all action classes' },
-      { label: 'Extract Auto Director state and logic into service', note: 'autoDirectorActive, startLegacyAutoDirector(), stopAutoDirector' },
-      { label: 'Extract Audio Director state and logic into service', note: 'audioDirectorActive, startAudioDirector(), stopAudioDirector(), tryConnect()' },
-      { label: 'Migrate SwitchInput action to SingletonAction class', note: 'onKeyDown, onWillAppear, onDidReceiveSettings, onSendToPlugin (inputChanged)' },
-      { label: 'Migrate CamPreview action to SingletonAction class', note: 'onKeyDown, onWillAppear, onDidReceiveSettings, onSendToPlugin (inputChanged)' },
-      { label: 'Migrate CUT (previewtoggle) action to SingletonAction class' },
-      { label: 'Migrate Fade action to SingletonAction class' },
-      { label: 'Migrate MediaPlayer action to SingletonAction class' },
-      { label: 'Migrate Rec action to SingletonAction class' },
-      { label: 'Migrate Stream action to SingletonAction class' },
-      { label: 'Migrate AutoDirector action to SingletonAction class', note: 'Delegates to AutoDirector service; onKeyDown toggles active state' },
-      { label: 'Migrate AudioDirector action to SingletonAction class', note: 'Delegates to AudioDirector service; onKeyDown toggles active state' },
-      { label: 'Migrate License action to SingletonAction class', note: 'onSendToPlugin handles activateLicense; sendToPropertyInspector for result' },
-      { label: 'Replace manual setImage/setTitle/showAlert with new SDK action methods' },
-      { label: 'Replace getGlobalSettings/setGlobalSettings with streamDeck.settings API' },
-      { label: 'Test all actions end-to-end with new SDK on real ATEM' },
-      { label: 'Windows support', tag: 'defer', note: 'After macOS is stable — requires Python/Audio Director port' },
-      { label: 'ATEM Mini Extreme / G2 support', tag: 'defer', note: 'Requires hardware to test — different input counts' },
-      { label: 'Mock ATEM for testing without hardware', tag: 'defer', note: 'MockAtem class — useful for CI and marketplace demo mode' },
+      { label: 'Migrate to @elgato/streamdeck v2 SDK', tag: 'defer', note: 'After 100+ paid users — enables Stream Deck Marketplace submission' },
+      { label: 'Apply to Stream Deck Marketplace officially', tag: 'defer', note: 'Requires SDK v2 migration + Apple notarization' },
+      { label: 'Windows support', tag: 'defer', note: 'After macOS is stable and revenue-positive' },
+      { label: 'ATEM Mini Extreme support', tag: 'defer', note: 'Requires hardware to test' },
+      { label: 'Mock ATEM for testing without hardware', tag: 'defer', note: 'MockAtem class — could ship as demo mode for marketplace evaluators' },
     ]
   }
 ];
