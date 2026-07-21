@@ -18,8 +18,10 @@
   body { background: var(--black); color: var(--white); font-family: var(--sans); font-weight: 300; line-height: 1.6; overflow-x: hidden; }
   .disclaimer-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 101; background: rgba(0,0,0,0.9); color: var(--gray); font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.06em; padding: 0.5rem 3rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.04); }
   nav { position: fixed; top: 28px; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 3rem; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); }
-  .logo { font-family: var(--display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--white); text-decoration: none; }
+  .logo { font-family: var(--display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
   .logo span { color: var(--red); }
+  .logo-icon { display: none; width: 28px; height: 28px; flex-shrink: 0; }
+  .logo-text { display: inline; }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
   .nav-links a { font-size: 0.85rem; color: var(--gray); text-decoration: none; transition: color 0.2s; font-weight: 400; }
   .nav-links a:hover { color: var(--white); }
@@ -145,13 +147,15 @@
 
   @media (max-width: 768px) {
     .disclaimer-bar { padding: 0.4rem 1rem; }
-    nav { padding: 1rem 1.5rem; top: 24px; position: fixed; }
+    nav { padding: 0.75rem 1.25rem; top: 24px; position: fixed; }
+    .logo-icon { display: block; }
+    .logo-text { display: none; }
     .menu-toggle { display: block; }
     .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.06); padding: 1rem 1.5rem; gap: 1rem; margin: 0; }
     .nav-links.open { display: flex; }
-    .nav-cta { font-size: 0.75rem !important; padding: 0.4rem 0.8rem !important; }
+    .nav-cta { font-size: 0.75rem !important; padding: 0.4rem 0.8rem !important; white-space: nowrap; }
     section { padding: 4rem 1.5rem; }
-    .hero { padding: 6rem 1.5rem 3rem; }
+    .hero { padding: 8rem 1.5rem 3rem; }
     .features-grid { grid-template-columns: 1fr; }
     .problem-grid, .spotlight-inner, .compat-grid, .roadmap-grid, .faq-grid { grid-template-columns: 1fr; gap: 2rem; }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
@@ -189,7 +193,10 @@
 <div class="disclaimer-bar">Not affiliated with Blackmagic Design or Elgato</div>
 
 <nav>
-  <a href="#" class="logo">ATEM<span>director</span></a>
+  <a href="#" class="logo">
+    <svg class="logo-icon" viewBox="0 0 73 73" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="36.5" cy="36.5" r="36.5" fill="#E63030"/><path d="M12.6967 56.4616C8.4775 50.7266 6.00002 43.7537 6.00002 36.2308C6.00002 28.7079 8.4775 21.735 12.6967 16.0001L19.4872 16.0001C14.4185 21.3691 11.3338 28.4576 11.3338 36.2308C11.3338 44.004 14.4185 51.0925 19.4872 56.4616L12.6967 56.4616Z" fill="white" fill-opacity="0.8"/><path d="M59.9955 16C64.2147 21.7349 66.6922 28.7078 66.6922 36.2307C66.6922 43.7536 64.2147 50.7265 59.9955 56.4615L53.205 56.4615C58.2737 51.0924 61.3584 44.004 61.3584 36.2307C61.3584 28.4575 58.2737 21.369 53.205 16L59.9955 16Z" fill="white" fill-opacity="0.8"/><circle cx="36.3461" cy="36.2307" r="16.859" fill="white" fill-opacity="0.8"/></svg>
+    <span class="logo-text">ATEM<span>director</span></span>
+  </a>
   <button class="menu-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">Menu &#9662;</button>
   <div class="nav-links">
     <a href="#features">Features</a>
@@ -204,7 +211,7 @@
 </nav>
 
 <section class="hero">
-  <div class="version-badge">v1.2.2 · July 2026</div>
+  <div class="version-badge">v1.3.0 · July 2026</div>
   <div class="hero-eyebrow">Stream Deck Plugin for ATEM Switchers</div>
   <h1 class="hero-headline">
     Your ATEM.<br>
